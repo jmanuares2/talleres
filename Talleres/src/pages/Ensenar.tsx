@@ -15,7 +15,7 @@ const Ensenar: React.FC = () => {
 
   const oficios = [
     'Carpintería', 'Costura', 'Cocina', 'Jardinería', 'Electricidad',
-    'Plomería', 'Pintura', 'Reparación de electrodomésticos', 'Carpintería',
+    'Plomería', 'Pintura', 'Reparación de electrodomésticos',
     'Herrería', 'Albañilería', 'Fontanería', 'Otro'
   ]
 
