@@ -8,8 +8,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const features = [
     {
       id: 'ensenar',
-      title: 'Enseñar',
-      description: 'Comparte tu conocimiento y gana dinero enseñando tu oficio',
+      title: 'Registrar Oficio',
+      description: 'Ofrece tus servicios como profesional o enseña tu oficio a otros vecinos',
       icon: '👨‍🏫',
       color: '#4CAF50'
     },

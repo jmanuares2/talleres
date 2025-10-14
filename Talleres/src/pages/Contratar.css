@@ -134,6 +134,7 @@
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid var(--light-gray);
+  gap: 0.5rem;
 }
 
 .servicio-precio {
@@ -145,6 +146,8 @@
   padding: 0.75rem 1rem;
   border-radius: 12px;
   box-shadow: var(--shadow-light);
+  flex: 1;
+  justify-content: center;
 }
 
 .precio-simbolo {
@@ -155,7 +158,7 @@
 
 .precio-valor {
   color: var(--white);
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 800;
 }
 
@@ -167,12 +170,18 @@
 
 .servicio-actions {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
+  flex: 1;
 }
 
 .servicio-actions .btn {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .info-section {
@@ -293,6 +302,13 @@
   
   .servicio-actions {
     flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .servicio-actions .btn {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.65rem;
+    max-width: 100px;
   }
   
   .servicio-precio {
@@ -301,6 +317,25 @@
   
   .steps {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .step {
+    padding: 1.5rem;
+  }
+  
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .step-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .step-content p {
+    font-size: 0.9rem;
   }
 }
 
@@ -324,5 +359,43 @@
   .info-section {
     padding: 2rem 1.5rem;
   }
+  
+  .steps {
+    display: block;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .step {
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .step-content h3 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .step-content p {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  
+  .mobile-summary {
+    display: none;
+  }
+}
+
+.mobile-summary {
+  display: none;
 }
 

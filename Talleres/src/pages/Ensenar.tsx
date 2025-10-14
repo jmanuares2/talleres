@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import './Ensenar.css'
 
 const Ensenar: React.FC = () => {
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState(true)
   const [formData, setFormData] = useState({
     titulo: '',
     descripcion: '',
     oficio: '',
     precio: '',
     duracion: '',
-    nivel: 'Principiante'
+    nivel: 'Principiante',
+    modalidad: 'ambos' // 'enseñar', 'servicio', 'ambos'
   })
 
   const oficios = [
@@ -44,19 +45,19 @@ const Ensenar: React.FC = () => {
   return (
     <div className="ensenar">
       <div className="page-header">
-        <h1>👨‍🏫 Enseña tu Oficio</h1>
-        <p>Comparte tu conocimiento y gana dinero enseñando lo que sabes hacer</p>
+        <h1>👨‍🏫 Registra tu Oficio</h1>
+        <p>Ofrece tus servicios como profesional o enseña tu oficio a otros vecinos</p>
       </div>
 
-      <div className="content-grid">
+      <div className="content-layout">
         <div className="info-section">
-          <h2>¿Por qué enseñar en Talleres de Barrio?</h2>
+          <h2>¿Por qué registrarte en Talleres de Barrio?</h2>
           <div className="benefits">
             <div className="benefit">
               <div className="benefit-icon">💰</div>
               <div className="benefit-content">
                 <h3>Gana dinero extra</h3>
-                <p>Monetiza tus habilidades y conocimientos</p>
+                <p>Monetiza tus habilidades como profesional o instructor</p>
               </div>
             </div>
             <div className="benefit">
@@ -74,49 +75,72 @@ const Ensenar: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <div className="popular-talleres">
-            <h3>Talleres más populares</h3>
-            <div className="talleres-list">
-              <div className="taller-item">
-                <span className="taller-icon">🔨</span>
-                <span>Carpintería básica</span>
-                <span className="taller-price">$50/sesión</span>
-              </div>
-              <div className="taller-item">
-                <span className="taller-icon">✂️</span>
-                <span>Costura y confección</span>
-                <span className="taller-price">$40/sesión</span>
-              </div>
-              <div className="taller-item">
-                <span className="taller-icon">🍳</span>
-                <span>Cocina tradicional</span>
-                <span className="taller-price">$60/sesión</span>
-              </div>
-              <div className="taller-item">
-                <span className="taller-icon">🌱</span>
-                <span>Jardinería urbana</span>
-                <span className="taller-price">$35/sesión</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="form-section">
           <div className="form-header">
-            <h2>Crear tu Taller</h2>
-            <button 
-              className="btn btn-primary"
-              onClick={() => setShowForm(!showForm)}
-            >
-              {showForm ? 'Cancelar' : 'Crear Taller'}
-            </button>
+            <h2>Registrar tu Oficio</h2>
           </div>
 
-          {showForm && (
-            <form onSubmit={handleSubmit} className="taller-form">
+          <form onSubmit={handleSubmit} className="taller-form">
               <div className="form-group">
-                <label htmlFor="titulo">Título del Taller</label>
+                <label htmlFor="modalidad">¿Cómo quieres ofrecer tu oficio?</label>
+                <div className="modalidad-options">
+                  <label className="modalidad-option">
+                    <input
+                      type="radio"
+                      name="modalidad"
+                      value="enseñar"
+                      checked={formData.modalidad === 'enseñar'}
+                      onChange={handleInputChange}
+                    />
+                    <div className="modalidad-card">
+                      <div className="modalidad-icon">👨‍🏫</div>
+                      <div className="modalidad-content">
+                        <h4>Solo Enseñar</h4>
+                        <p>Imparte talleres y cursos</p>
+                      </div>
+                    </div>
+                  </label>
+                  
+                  <label className="modalidad-option">
+                    <input
+                      type="radio"
+                      name="modalidad"
+                      value="servicio"
+                      checked={formData.modalidad === 'servicio'}
+                      onChange={handleInputChange}
+                    />
+                    <div className="modalidad-card">
+                      <div className="modalidad-icon">🔧</div>
+                      <div className="modalidad-content">
+                        <h4>Solo Servicio</h4>
+                        <p>Brinda servicios profesionales</p>
+                      </div>
+                    </div>
+                  </label>
+                  
+                  <label className="modalidad-option">
+                    <input
+                      type="radio"
+                      name="modalidad"
+                      value="ambos"
+                      checked={formData.modalidad === 'ambos'}
+                      onChange={handleInputChange}
+                    />
+                    <div className="modalidad-card">
+                      <div className="modalidad-icon">🎯</div>
+                      <div className="modalidad-content">
+                        <h4>Ambos</h4>
+                        <p>Enseña y brinda servicios</p>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="titulo">Título de tu oficio</label>
                 <input
                   type="text"
                   id="titulo"
@@ -202,10 +226,9 @@ const Ensenar: React.FC = () => {
               </div>
 
               <button type="submit" className="btn btn-primary btn-full">
-                Crear Taller
+                Registrar Oficio
               </button>
-            </form>
-          )}
+          </form>
         </div>
       </div>
     </div>

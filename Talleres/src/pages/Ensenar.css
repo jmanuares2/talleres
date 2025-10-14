@@ -6,19 +6,11 @@
   width: 100%;
 }
 
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.content-layout {
+  display: flex;
+  flex-direction: column;
   gap: 3rem;
   margin-bottom: 2rem;
-}
-
-.info-section {
-  background: var(--white);
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: var(--shadow-light);
-  border: 1px solid var(--light-gray);
 }
 
 .info-section h2 {
@@ -130,12 +122,11 @@
   border-radius: 20px;
   box-shadow: var(--shadow-light);
   border: 1px solid var(--light-gray);
+  order: 1;
+  margin-bottom: 2rem;
 }
 
 .form-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 2rem;
 }
 
@@ -195,10 +186,67 @@
   gap: 1rem;
 }
 
+/* Modalidad Options */
+.modalidad-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.modalidad-option {
+  cursor: pointer;
+  position: relative;
+}
+
+.modalidad-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modalidad-card {
+  background: var(--light-gray);
+  border: 2px solid var(--light-gray);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: var(--transition-normal);
+  cursor: pointer;
+}
+
+.modalidad-option input[type="radio"]:checked + .modalidad-card {
+  border-color: var(--primary-orange);
+  background: rgba(230, 126, 34, 0.1);
+  box-shadow: var(--shadow-light);
+}
+
+.modalidad-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-light);
+}
+
+.modalidad-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.modalidad-content h4 {
+  color: var(--dark-gray);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.modalidad-content p {
+  color: var(--medium-gray);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
-  .content-grid {
-    grid-template-columns: 1fr;
+  .content-layout {
     gap: 2rem;
   }
   
@@ -206,10 +254,30 @@
     grid-template-columns: 1fr;
   }
   
-  .form-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+  .form-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .modalidad-options {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .modalidad-card {
+    padding: 1rem;
+  }
+  
+  .modalidad-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .modalidad-content h4 {
+    font-size: 1.1rem;
+  }
+  
+  .modalidad-content p {
+    font-size: 0.85rem;
   }
 }
 
@@ -224,14 +292,67 @@
   }
   
   .benefit {
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row;
+    text-align: left;
     gap: 1rem;
+    padding: 1rem;
   }
   
   .benefit-icon {
     margin-right: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
   }
+  
+  .benefit-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .benefit-content p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .info-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .benefits {
+    display: block;
+  }
+  
+  .benefit {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .benefit-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    margin-right: 0.75rem;
+  }
+  
+  .benefit-content h3 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .benefit-content p {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  
+  .mobile-summary {
+    display: none;
+  }
+}
+
+.mobile-summary {
+  display: none;
 }
 

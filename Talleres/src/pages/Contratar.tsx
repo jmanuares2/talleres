@@ -29,7 +29,7 @@ const Contratar: React.FC = () => {
       ubicacion: 'Barrio Norte',
       descripcion: 'Especialista en muebles de madera personalizados. 10 años de experiencia.',
       disponibilidad: 'Disponible',
-      telefono: '+1 (555) 123-4567'
+      telefono: '+54 911 1234-5678'
     },
     {
       id: 2,
@@ -42,7 +42,7 @@ const Contratar: React.FC = () => {
       ubicacion: 'Barrio Centro',
       descripcion: 'Arreglos de ropa, confección de cortinas y ropa personalizada.',
       disponibilidad: 'Disponible',
-      telefono: '+1 (555) 234-5678'
+      telefono: '+54 911 2345-6789'
     },
     {
       id: 3,
@@ -55,7 +55,7 @@ const Contratar: React.FC = () => {
       ubicacion: 'Barrio Sur',
       descripcion: 'Diseño y mantenimiento de jardines. Especialista en plantas nativas.',
       disponibilidad: 'Disponible',
-      telefono: '+1 (555) 345-6789'
+      telefono: '+54 911 3456-7890'
     },
     {
       id: 4,
@@ -68,7 +68,7 @@ const Contratar: React.FC = () => {
       ubicacion: 'Barrio Este',
       descripcion: 'Instalaciones eléctricas, reparaciones y mantenimiento. Certificado.',
       disponibilidad: 'Ocupado',
-      telefono: '+1 (555) 456-7890'
+      telefono: '+54 911 4567-8901'
     },
     {
       id: 5,
@@ -81,7 +81,7 @@ const Contratar: React.FC = () => {
       ubicacion: 'Barrio Oeste',
       descripcion: 'Servicio de limpieza profunda para hogares y oficinas.',
       disponibilidad: 'Disponible',
-      telefono: '+1 (555) 567-8901'
+      telefono: '+54 911 5678-9012'
     },
     {
       id: 6,
@@ -94,7 +94,7 @@ const Contratar: React.FC = () => {
       ubicacion: 'Barrio Norte',
       descripcion: 'Reparaciones de plomería, instalaciones y mantenimiento preventivo.',
       disponibilidad: 'Disponible',
-      telefono: '+1 (555) 678-9012'
+      telefono: '+54 911 6789-0123'
     }
   ]
 
@@ -153,7 +153,16 @@ const Contratar: React.FC = () => {
 
       <div className="servicios-grid">
         {filteredServicios.map(servicio => (
-          <div key={servicio.id} className="servicio-card">
+          <div 
+            key={servicio.id} 
+            className="servicio-card"
+            onClick={() => {
+              if (servicio.disponibilidad !== 'Ocupado') {
+                alert(`Contactando a ${servicio.nombre}...`);
+              }
+            }}
+            style={{ cursor: servicio.disponibilidad === 'Ocupado' ? 'default' : 'pointer' }}
+          >
             <div className="servicio-header">
               <div className="servicio-info">
                 <h3>{servicio.nombre}</h3>
@@ -188,12 +197,6 @@ const Contratar: React.FC = () => {
               <div className="servicio-actions">
                 <button className="btn btn-outline">
                   📞 {servicio.telefono}
-                </button>
-                <button 
-                  className="btn btn-primary"
-                  disabled={servicio.disponibilidad === 'Ocupado'}
-                >
-                  {servicio.disponibilidad === 'Ocupado' ? 'No disponible' : 'Contratar'}
                 </button>
               </div>
             </div>
