@@ -1,0 +1,328 @@
+/* Contratar Page Styles */
+.contratar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+}
+
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.servicio-card {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-light);
+  overflow: hidden;
+  transition: var(--transition-normal);
+  border: 1px solid var(--light-gray);
+  position: relative;
+}
+
+.servicio-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-heavy);
+}
+
+.servicio-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+  transform: scaleX(0);
+  transition: var(--transition-normal);
+}
+
+.servicio-card:hover::before {
+  transform: scaleX(1);
+}
+
+.servicio-header {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--light-gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.servicio-info h3 {
+  color: var(--dark-gray);
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.servicio-especialidad {
+  color: var(--primary-green);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-light);
+}
+
+.status-badge.disponible {
+  background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+  color: var(--white);
+}
+
+.status-badge.ocupado {
+  background: linear-gradient(135deg, #E74C3C, #C0392B);
+  color: var(--white);
+}
+
+.servicio-details {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.servicio-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--medium-gray);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.servicio-rating span:first-child {
+  color: var(--primary-gold);
+  font-weight: 700;
+}
+
+.servicio-ubicacion {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--medium-gray);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.ubicacion-icon {
+  font-size: 1rem;
+}
+
+.servicio-descripcion {
+  padding: 0 1.5rem;
+  color: var(--medium-gray);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.servicio-footer {
+  padding: 1.5rem;
+  background: var(--light-gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--light-gray);
+}
+
+.servicio-precio {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+  color: var(--white);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+}
+
+.precio-simbolo {
+  color: var(--white);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.precio-valor {
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.precio-unidad {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.servicio-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.servicio-actions .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.info-section {
+  background: var(--white);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow-light);
+  margin-top: 3rem;
+  border: 1px solid var(--light-gray);
+}
+
+.info-section h2 {
+  text-align: center;
+  color: var(--dark-gray);
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background: var(--light-gray);
+  border-radius: 20px;
+  border-top: 4px solid var(--primary-green);
+  transition: var(--transition-normal);
+}
+
+.step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-light);
+}
+
+.step-number {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+  color: var(--white);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-medium);
+}
+
+.step-content h3 {
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.step-content p {
+  color: var(--medium-gray);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem;
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-light);
+  border: 1px solid var(--light-gray);
+}
+
+.no-results h3 {
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.no-results p {
+  color: var(--medium-gray);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .servicios-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .servicio-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .servicio-details {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  
+  .servicio-footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .servicio-actions {
+    flex-direction: column;
+  }
+  
+  .servicio-precio {
+    justify-content: center;
+  }
+  
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contratar {
+    padding: 1rem;
+  }
+  
+  .servicio-card {
+    margin-bottom: 1rem;
+  }
+  
+  .servicio-header,
+  .servicio-details,
+  .servicio-descripcion,
+  .servicio-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .info-section {
+    padding: 2rem 1.5rem;
+  }
+}
+
