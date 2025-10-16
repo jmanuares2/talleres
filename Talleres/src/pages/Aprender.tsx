@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import './Aprender.css'
+import { useTalleres } from '../hooks/useTalleres'
 
 const Aprender: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedOficio, setSelectedOficio] = useState('')
   const [selectedNivel, setSelectedNivel] = useState('')
+  
+  // Usar el hook para obtener datos del backend
+  const { talleres: talleresData, loading, error } = useTalleres()
 
   const oficios = [
     'Carpintería', 'Costura', 'Cocina', 'Jardinería', 'Electricidad',
@@ -14,65 +18,21 @@ const Aprender: React.FC = () => {
 
   const niveles = ['Principiante', 'Intermedio', 'Avanzado']
 
-  // Datos de ejemplo de talleres disponibles
-  const talleres = [
-    {
-      id: 1,
-      titulo: 'Carpintería Básica',
-      instructor: 'Juan Pérez',
-      oficio: 'Carpintería',
-      precio: 50,
-      duracion: 3,
-      nivel: 'Principiante',
-      descripcion: 'Aprende las técnicas básicas de carpintería y construye tu primer proyecto.',
-      rating: 4.8,
-      estudiantes: 12,
-      fecha: '15 Oct 2024',
-      ubicacion: 'Barrio Norte'
-    },
-    {
-      id: 2,
-      titulo: 'Costura y Confección',
-      instructor: 'María González',
-      oficio: 'Costura',
-      precio: 40,
-      duracion: 2,
-      nivel: 'Principiante',
-      descripcion: 'Domina el uso de la máquina de coser y crea tus propias prendas.',
-      rating: 4.9,
-      estudiantes: 8,
-      fecha: '20 Oct 2024',
-      ubicacion: 'Barrio Centro'
-    },
-    {
-      id: 3,
-      titulo: 'Jardinería Urbana',
-      instructor: 'Carlos López',
-      oficio: 'Jardinería',
-      precio: 35,
-      duracion: 2,
-      nivel: 'Principiante',
-      descripcion: 'Aprende a crear y mantener un jardín en espacios pequeños.',
-      rating: 4.7,
-      estudiantes: 15,
-      fecha: '18 Oct 2024',
-      ubicacion: 'Barrio Sur'
-    },
-    {
-      id: 4,
-      titulo: 'Reparación de Electrodomésticos',
-      instructor: 'Roberto Silva',
-      oficio: 'Reparación de electrodomésticos',
-      precio: 60,
-      duracion: 4,
-      nivel: 'Intermedio',
-      descripcion: 'Aprende a diagnosticar y reparar electrodomésticos comunes.',
-      rating: 4.6,
-      estudiantes: 6,
-      fecha: '22 Oct 2024',
-      ubicacion: 'Barrio Este'
-    }
-  ]
+  // Mapear datos del backend al formato esperado por el frontend
+  const talleres = talleresData.map(taller => ({
+    id: taller.id,
+    titulo: taller.nombre,
+    instructor: taller.instructor,
+    oficio: taller.categoria,
+    precio: taller.precio,
+    duracion: taller.duracion_horas,
+    nivel: 'Principiante', // Por defecto, podríamos agregar este campo al backend
+    descripcion: taller.descripcion,
+    rating: 4.5, // Por defecto, podríamos agregar este campo al backend
+    estudiantes: 0, // Por defecto, podríamos agregar este campo al backend
+    fecha: 'Próximamente', // Por defecto, podríamos agregar este campo al backend
+    ubicacion: 'Virtual' // Por defecto, podríamos agregar este campo al backend
+  }))
 
   const filteredTalleres = talleres.filter(taller => {
     const matchesSearch = taller.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -82,6 +42,41 @@ const Aprender: React.FC = () => {
     
     return matchesSearch && matchesOficio && matchesNivel
   })
+
+  // Mostrar estado de carga
+  if (loading) {
+    return (
+      <div className="aprender">
+        <div className="page-header">
+          <h1>🎓 Aprende Nuevos Oficios</h1>
+          <p>Cargando talleres...</p>
+        </div>
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          <p>Cargando talleres disponibles...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Mostrar error si hay uno
+  if (error) {
+    return (
+      <div className="aprender">
+        <div className="page-header">
+          <h1>🎓 Aprende Nuevos Oficios</h1>
+          <p>Error al cargar los talleres</p>
+        </div>
+        <div className="error">
+          <h3>⚠️ Error</h3>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()} className="btn btn-primary">
+            Reintentar
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="aprender">
