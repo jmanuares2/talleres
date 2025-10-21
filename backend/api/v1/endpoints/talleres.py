@@ -12,6 +12,11 @@ class TallerBase(BaseModel):
     duracion_horas: int
     precio: float
     categoria: str
+    nivel: str = "Principiante"
+    rating: float = 4.5
+    estudiantes: int = 0
+    fecha: str = "Próximamente"
+    ubicacion: str = "Virtual"
 
 class TallerCreate(TallerBase):
     pass
@@ -33,6 +38,11 @@ talleres_db = [
         "duracion_horas": 20,
         "precio": 150.0,
         "categoria": "Programación",
+        "nivel": "Principiante",
+        "rating": 4.5,
+        "estudiantes": 12,
+        "fecha": "2024-02-15",
+        "ubicacion": "Virtual",
         "activo": True
     },
     {
@@ -43,6 +53,41 @@ talleres_db = [
         "duracion_horas": 15,
         "precio": 120.0,
         "categoria": "Programación",
+        "nivel": "Principiante",
+        "rating": 4.3,
+        "estudiantes": 8,
+        "fecha": "2024-02-20",
+        "ubicacion": "Virtual",
+        "activo": True
+    },
+    {
+        "id": 3,
+        "nombre": "Carpintería Básica",
+        "descripcion": "Aprende a trabajar la madera y crear muebles simples",
+        "instructor": "Carlos López",
+        "duracion_horas": 12,
+        "precio": 80.0,
+        "categoria": "Carpintería",
+        "nivel": "Principiante",
+        "rating": 4.7,
+        "estudiantes": 15,
+        "fecha": "2024-02-25",
+        "ubicacion": "Presencial",
+        "activo": True
+    },
+    {
+        "id": 4,
+        "nombre": "Costura y Confección",
+        "descripcion": "Domina las técnicas básicas de costura y confección",
+        "instructor": "Ana Martínez",
+        "duracion_horas": 10,
+        "precio": 60.0,
+        "categoria": "Costura",
+        "nivel": "Principiante",
+        "rating": 4.6,
+        "estudiantes": 20,
+        "fecha": "2024-03-01",
+        "ubicacion": "Presencial",
         "activo": True
     }
 ]

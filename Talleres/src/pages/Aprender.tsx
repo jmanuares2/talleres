@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Aprender.css'
 import { useTalleres } from '../hooks/useTalleres'
+import { useCategorias } from '../hooks/useCategorias'
 
 const Aprender: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -9,16 +10,11 @@ const Aprender: React.FC = () => {
   
   // Usar el hook para obtener datos del backend
   const { talleres: talleresData, loading, error } = useTalleres()
+  
+  // Obtener categorías dinámicamente
+  const { oficios, niveles } = useCategorias()
 
-  const oficios = [
-    'Carpintería', 'Costura', 'Cocina', 'Jardinería', 'Electricidad',
-    'Plomería', 'Pintura', 'Reparación de electrodomésticos', 'Herrería',
-    'Albañilería', 'Fontanería'
-  ]
-
-  const niveles = ['Principiante', 'Intermedio', 'Avanzado']
-
-  // Mapear datos del backend al formato esperado por el frontend
+  // Usar directamente los datos del backend
   const talleres = talleresData.map(taller => ({
     id: taller.id,
     titulo: taller.nombre,
@@ -26,12 +22,12 @@ const Aprender: React.FC = () => {
     oficio: taller.categoria,
     precio: taller.precio,
     duracion: taller.duracion_horas,
-    nivel: 'Principiante', // Por defecto, podríamos agregar este campo al backend
+    nivel: taller.nivel,
     descripcion: taller.descripcion,
-    rating: 4.5, // Por defecto, podríamos agregar este campo al backend
-    estudiantes: 0, // Por defecto, podríamos agregar este campo al backend
-    fecha: 'Próximamente', // Por defecto, podríamos agregar este campo al backend
-    ubicacion: 'Virtual' // Por defecto, podríamos agregar este campo al backend
+    rating: taller.rating,
+    estudiantes: taller.estudiantes,
+    fecha: taller.fecha,
+    ubicacion: taller.ubicacion
   }))
 
   const filteredTalleres = talleres.filter(taller => {

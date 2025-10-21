@@ -1,10 +1,18 @@
 import React from 'react'
+import { useEstadisticas } from '../hooks/useEstadisticas'
+import { useTestimonios } from '../hooks/useTestimonios'
 
 interface HomeProps {
   onNavigate: (page: string) => void
 }
 
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
+  // Usar el hook para obtener estadísticas dinámicas
+  const { estadisticas, loading } = useEstadisticas()
+  
+  // Usar el hook para obtener testimonios dinámicos
+  const { testimonios } = useTestimonios()
+  
   const features = [
     {
       id: 'ensenar',
@@ -40,15 +48,21 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </p>
           <div className="hero-stats">
             <div className="stat">
-              <span className="stat-number">150+</span>
+              <span className="stat-number">
+                {loading ? '...' : `${estadisticas.talleres_disponibles}+`}
+              </span>
               <span className="stat-label">Talleres disponibles</span>
             </div>
             <div className="stat">
-              <span className="stat-number">500+</span>
+              <span className="stat-number">
+                {loading ? '...' : `${estadisticas.vecinos_conectados}+`}
+              </span>
               <span className="stat-label">Vecinos conectados</span>
             </div>
             <div className="stat">
-              <span className="stat-number">50+</span>
+              <span className="stat-number">
+                {loading ? '...' : `${estadisticas.oficios_diferentes}+`}
+              </span>
               <span className="stat-label">Oficios diferentes</span>
             </div>
           </div>
@@ -79,27 +93,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <section className="testimonials">
         <h2>Lo que dicen nuestros vecinos</h2>
         <div className="testimonials-grid">
-          <div className="testimonial">
-            <p>"Aprendí carpintería con mi vecino Juan. Ahora puedo hacer mis propios muebles!"</p>
-            <div className="testimonial-author">
-              <strong>María González</strong>
-              <span>Vecina del Barrio Norte</span>
+          {testimonios.slice(0, 3).map((testimonio) => (
+            <div key={testimonio.id} className="testimonial">
+              <p>"{testimonio.texto}"</p>
+              <div className="testimonial-author">
+                <strong>{testimonio.autor}</strong>
+                <span>{testimonio.ubicacion}</span>
+              </div>
             </div>
-          </div>
-          <div className="testimonial">
-            <p>"Enseño costura y he ganado dinero extra mientras ayudo a otros a aprender."</p>
-            <div className="testimonial-author">
-              <strong>Carmen López</strong>
-              <span>Profesora de Costura</span>
-            </div>
-          </div>
-          <div className="testimonial">
-            <p>"Contraté a un electricista del barrio. Excelente trabajo y precio justo."</p>
-            <div className="testimonial-author">
-              <strong>Roberto Silva</strong>
-              <span>Vecino del Centro</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </div>

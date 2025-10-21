@@ -1,102 +1,21 @@
 import React, { useState } from 'react'
 import './Contratar.css'
+import { useServicios } from '../hooks/useServicios'
+import { useCategorias } from '../hooks/useCategorias'
 
 const Contratar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedServicio, setSelectedServicio] = useState('')
   const [selectedUbicacion, setSelectedUbicacion] = useState('')
+  
+  // Usar el hook para obtener datos del backend
+  const { servicios: serviciosData, loading, error } = useServicios()
+  
+  // Obtener categorías dinámicamente
+  const { oficios: servicios, ubicaciones } = useCategorias()
 
-  const servicios = [
-    'Carpintería', 'Costura', 'Cocina', 'Jardinería', 'Electricidad',
-    'Plomería', 'Pintura', 'Reparación de electrodomésticos', 'Herrería',
-    'Albañilería', 'Fontanería', 'Limpieza', 'Cuidado de mascotas'
-  ]
-
-  const ubicaciones = [
-    'Barrio Norte', 'Barrio Sur', 'Barrio Este', 'Barrio Oeste', 'Barrio Centro'
-  ]
-
-  // Datos de ejemplo de servicios disponibles
-  const serviciosDisponibles = [
-    {
-      id: 1,
-      nombre: 'Juan Pérez',
-      servicio: 'Carpintería',
-      especialidad: 'Muebles personalizados',
-      precio: 80,
-      rating: 4.9,
-      trabajos: 45,
-      ubicacion: 'Barrio Norte',
-      descripcion: 'Especialista en muebles de madera personalizados. 10 años de experiencia.',
-      disponibilidad: 'Disponible',
-      telefono: '+54 911 1234-5678'
-    },
-    {
-      id: 2,
-      nombre: 'María González',
-      servicio: 'Costura',
-      especialidad: 'Arreglos y confección',
-      precio: 25,
-      rating: 4.8,
-      trabajos: 32,
-      ubicacion: 'Barrio Centro',
-      descripcion: 'Arreglos de ropa, confección de cortinas y ropa personalizada.',
-      disponibilidad: 'Disponible',
-      telefono: '+54 911 2345-6789'
-    },
-    {
-      id: 3,
-      nombre: 'Carlos López',
-      servicio: 'Jardinería',
-      especialidad: 'Diseño de jardines',
-      precio: 60,
-      rating: 4.7,
-      trabajos: 28,
-      ubicacion: 'Barrio Sur',
-      descripcion: 'Diseño y mantenimiento de jardines. Especialista en plantas nativas.',
-      disponibilidad: 'Disponible',
-      telefono: '+54 911 3456-7890'
-    },
-    {
-      id: 4,
-      nombre: 'Roberto Silva',
-      servicio: 'Electricidad',
-      especialidad: 'Instalaciones domésticas',
-      precio: 100,
-      rating: 4.9,
-      trabajos: 67,
-      ubicacion: 'Barrio Este',
-      descripcion: 'Instalaciones eléctricas, reparaciones y mantenimiento. Certificado.',
-      disponibilidad: 'Ocupado',
-      telefono: '+54 911 4567-8901'
-    },
-    {
-      id: 5,
-      nombre: 'Ana Martínez',
-      servicio: 'Limpieza',
-      especialidad: 'Limpieza profunda',
-      precio: 40,
-      rating: 4.6,
-      trabajos: 23,
-      ubicacion: 'Barrio Oeste',
-      descripcion: 'Servicio de limpieza profunda para hogares y oficinas.',
-      disponibilidad: 'Disponible',
-      telefono: '+54 911 5678-9012'
-    },
-    {
-      id: 6,
-      nombre: 'Luis Rodríguez',
-      servicio: 'Plomería',
-      especialidad: 'Reparaciones urgentes',
-      precio: 70,
-      rating: 4.8,
-      trabajos: 41,
-      ubicacion: 'Barrio Norte',
-      descripcion: 'Reparaciones de plomería, instalaciones y mantenimiento preventivo.',
-      disponibilidad: 'Disponible',
-      telefono: '+54 911 6789-0123'
-    }
-  ]
+  // Usar datos del backend
+  const serviciosDisponibles = serviciosData
 
   const filteredServicios = serviciosDisponibles.filter(servicio => {
     const matchesSearch = servicio.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -106,6 +25,41 @@ const Contratar: React.FC = () => {
     
     return matchesSearch && matchesServicio && matchesUbicacion
   })
+
+  // Mostrar estado de carga
+  if (loading) {
+    return (
+      <div className="contratar">
+        <div className="page-header">
+          <h1>💼 Contratar Servicios</h1>
+          <p>Cargando servicios...</p>
+        </div>
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          <p>Cargando servicios disponibles...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Mostrar error si hay uno
+  if (error) {
+    return (
+      <div className="contratar">
+        <div className="page-header">
+          <h1>💼 Contratar Servicios</h1>
+          <p>Error al cargar los servicios</p>
+        </div>
+        <div className="error">
+          <h3>⚠️ Error</h3>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()} className="btn btn-primary">
+            Reintentar
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="contratar">

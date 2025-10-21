@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import './Ensenar.css'
+import { useTalleres } from '../hooks/useTalleres'
+import { useCategorias } from '../hooks/useCategorias'
 
 const Ensenar: React.FC = () => {
   const [showForm, setShowForm] = useState(true)
@@ -12,27 +14,46 @@ const Ensenar: React.FC = () => {
     nivel: 'Principiante',
     modalidad: 'ambos' // 'enseñar', 'servicio', 'ambos'
   })
+  
+  // Usar el hook para crear talleres
+  const { createTaller } = useTalleres()
+  
+  // Obtener categorías dinámicamente
+  const { oficios } = useCategorias()
 
-  const oficios = [
-    'Carpintería', 'Costura', 'Cocina', 'Jardinería', 'Electricidad',
-    'Plomería', 'Pintura', 'Reparación de electrodomésticos',
-    'Herrería', 'Albañilería', 'Fontanería', 'Otro'
-  ]
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Aquí se enviaría la información a un backend
-    console.log('Taller creado:', formData)
-    alert('¡Taller creado exitosamente!')
-    setShowForm(false)
-    setFormData({
-      titulo: '',
-      descripcion: '',
-      oficio: '',
-      precio: '',
-      duracion: '',
-      nivel: 'Principiante'
-    })
+    try {
+      // Crear el taller usando la API
+      await createTaller({
+        nombre: formData.titulo,
+        descripcion: formData.descripcion,
+        instructor: 'Usuario Actual', // En una app real, esto vendría del contexto de autenticación
+        duracion_horas: parseInt(formData.duracion),
+        precio: parseFloat(formData.precio),
+        categoria: formData.oficio,
+        nivel: formData.nivel,
+        rating: 4.5,
+        estudiantes: 0,
+        fecha: 'Próximamente',
+        ubicacion: 'Presencial'
+      })
+      
+      alert('¡Taller creado exitosamente!')
+      setShowForm(false)
+      setFormData({
+        titulo: '',
+        descripcion: '',
+        oficio: '',
+        precio: '',
+        duracion: '',
+        nivel: 'Principiante',
+        modalidad: 'ambos'
+      })
+    } catch (error) {
+      console.error('Error al crear el taller:', error)
+      alert('Error al crear el taller. Por favor, inténtalo de nuevo.')
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -183,7 +204,7 @@ const Ensenar: React.FC = () => {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="precio">Precio por sesión</label>
+                  <label htmlFor="precio">Precio por hora</label>
                   <input
                     type="number"
                     id="precio"

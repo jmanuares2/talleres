@@ -20,6 +20,11 @@ export interface Taller {
   duracion_horas: number;
   precio: number;
   categoria: string;
+  nivel: string;
+  rating: number;
+  estudiantes: number;
+  fecha: string;
+  ubicacion: string;
   activo: boolean;
 }
 
@@ -39,6 +44,11 @@ export interface TallerCreate {
   duracion_horas: number;
   precio: number;
   categoria: string;
+  nivel: string;
+  rating: number;
+  estudiantes: number;
+  fecha: string;
+  ubicacion: string;
 }
 
 export interface UsuarioCreate {
@@ -46,6 +56,34 @@ export interface UsuarioCreate {
   email: string;
   telefono: string;
   tipo: 'estudiante' | 'instructor';
+}
+
+export interface Servicio {
+  id: number;
+  nombre: string;
+  servicio: string;
+  especialidad: string;
+  precio: number;
+  rating: number;
+  trabajos: number;
+  ubicacion: string;
+  descripcion: string;
+  disponibilidad: string;
+  telefono: string;
+  activo: boolean;
+}
+
+export interface ServicioCreate {
+  nombre: string;
+  servicio: string;
+  especialidad: string;
+  precio: number;
+  rating: number;
+  trabajos: number;
+  ubicacion: string;
+  descripcion: string;
+  disponibilidad: string;
+  telefono: string;
 }
 
 // Servicios para Talleres
@@ -109,6 +147,82 @@ export const usuariosService = {
   // Eliminar un usuario
   delete: async (id: number): Promise<void> => {
     await api.delete(`/usuarios/${id}`);
+  },
+};
+
+// Servicios para Servicios Profesionales
+export const serviciosService = {
+  // Obtener todos los servicios
+  getAll: async (): Promise<Servicio[]> => {
+    const response = await api.get('/servicios/');
+    return response.data;
+  },
+
+  // Obtener un servicio por ID
+  getById: async (id: number): Promise<Servicio> => {
+    const response = await api.get(`/servicios/${id}`);
+    return response.data;
+  },
+
+  // Crear un nuevo servicio
+  create: async (servicio: ServicioCreate): Promise<Servicio> => {
+    const response = await api.post('/servicios/', servicio);
+    return response.data;
+  },
+
+  // Actualizar un servicio
+  update: async (id: number, servicio: ServicioCreate): Promise<Servicio> => {
+    const response = await api.put(`/servicios/${id}`, servicio);
+    return response.data;
+  },
+
+  // Eliminar un servicio
+  delete: async (id: number): Promise<void> => {
+    await api.delete(`/servicios/${id}`);
+  },
+};
+
+// Servicio de estadísticas
+export const estadisticasService = {
+  get: async (): Promise<{ talleres_disponibles: number; vecinos_conectados: number; oficios_diferentes: number }> => {
+    const response = await api.get('/estadisticas/');
+    return response.data;
+  },
+};
+
+// Servicio de categorías
+export const categoriasService = {
+  getOficios: async (): Promise<string[]> => {
+    const response = await api.get('/categorias/oficios');
+    return response.data;
+  },
+  getUbicaciones: async (): Promise<string[]> => {
+    const response = await api.get('/categorias/ubicaciones');
+    return response.data;
+  },
+  getNiveles: async (): Promise<string[]> => {
+    const response = await api.get('/categorias/niveles');
+    return response.data;
+  },
+  getAll: async (): Promise<{ oficios: string[]; ubicaciones: string[]; niveles: string[] }> => {
+    const response = await api.get('/categorias/');
+    return response.data;
+  },
+};
+
+// Interface para testimonios
+export interface Testimonio {
+  id: number;
+  texto: string;
+  autor: string;
+  ubicacion: string;
+}
+
+// Servicio de testimonios
+export const testimoniosService = {
+  getAll: async (): Promise<Testimonio[]> => {
+    const response = await api.get('/testimonios/');
+    return response.data;
   },
 };
 

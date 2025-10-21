@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "dev:frontend": "vite",
-    "dev:backend": "cd ../backend && python main.py",
-    "dev:all": "concurrently \"pnpm dev:frontend\" \"pnpm dev:backend\"",
+    "dev:backend": "cd ../backend && (venv\\Scripts\\activate.bat || source venv/bin/activate) && python main.py",
+    "dev:all": "concurrently -n \"FRONTEND,BACKEND\" -c \"cyan,green\" \"pnpm dev:frontend\" \"pnpm dev:backend\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
